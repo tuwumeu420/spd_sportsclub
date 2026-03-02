@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy SSH
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           # PROD_SERVER CREDENTIALS FOR SCP
           host: ${{ secrets.SERVER_IP }}
