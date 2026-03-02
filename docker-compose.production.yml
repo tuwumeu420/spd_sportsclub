@@ -4,10 +4,12 @@ services:
   postgres:
     restart: always
     # Esto asegura que se limpie cualquier puerto del original
-    ports: []
+    ports: !override []
 
   app-blue:
     restart: always
+    environment:
+      - DEBUG=False
     security_opt:
       - no-new-privileges:true
     deploy:
@@ -18,6 +20,8 @@ services:
 
   app-green:
     restart: always
+    environment:
+      - DEBUG=False
     security_opt:
       - no-new-privileges:true
     deploy:

@@ -18,7 +18,7 @@ environ.Env.read_env(BASE_DIR.parent / ".env")
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 SECRET_KEY = env("SECRET_KEY", default="insecure-build-time-key")
-DEBUG = env("DEBUG", default=False)
+DEBUG = env.bool("DEBUG", default=False)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 ADMINS = env.list("ADMINS", default=[])
 MANAGERS = env.list("MANAGERS", default=[])
