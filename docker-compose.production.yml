@@ -7,6 +7,7 @@ services:
     ports: !override []
 
   app-blue:
+    image: tuwumeu420/sportsclub:latest
     restart: always
     environment:
       - DEBUG=False
@@ -19,6 +20,7 @@ services:
           memory: 512M
 
   app-green:
+    image: tuwumeu420/sportsclub:latest
     restart: always
     environment:
       - DEBUG=False
