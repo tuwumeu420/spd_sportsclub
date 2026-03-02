@@ -138,8 +138,10 @@ jobs:
           EOF
 
       - name: Build and start services
-        # NEW: TEST THE FULL STACK WITH THE NEW SECURITY POLICIES IN PLACE
-        run: docker compose up -d --build
+       #NEW: TEST THE ORIGINAL STACK
+       #run: docker compose up -d --build
+       #NEW: TEST THE FULL STACK
+        run: docker compose -f docker-compose.yml -f docker-compose.production.yml up -d --build
 
       - name: Wait for services to be healthy
         run: |
