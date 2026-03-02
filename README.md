@@ -158,7 +158,7 @@ class Venue(Auditory):
     [..]
 ```
 
-In a more advanced scenario, if we were to meet the requirements set by GDPR and similar laws, we would also be implementing attributes and methods to anonymise and purge records, and we would keep track of which user performed which operation. 
+In a more advanced scenario, if we were to meet the requirements set by GDPR and similar laws, we would also be implementing attributes and methods to anonymise and purge records, and we would keep track of which user performed which operation.
 
 Advantages of using base classes in Django's ORM:
 
@@ -756,7 +756,7 @@ from django.db import models
 
 class SoftDeleteManager(models.Manager):
     """Manager that excludes soft-deleted objects by default."""
-    
+
     def get_queryset(self):
         """Return queryset excluding soft-deleted records."""
         return super().get_queryset().filter(deleted_at__isnull=True)
@@ -1623,7 +1623,7 @@ class AddressInSchemaTest(TestCase):
         self.assertEqual(schema.city, "Palma")
         self.assertEqual(schema.state, "Illes Balears")
         self.assertEqual(schema.country, "Spain")
-    
+
     [..]
 ```
 
@@ -1677,7 +1677,7 @@ class AddressAPITestCase(TestCase):
         first_address = data[0]
         self.assertIn("public_id", first_address)
         self.assertIn("formatted_address", first_address)
-    
+
     [..]
 ```
 

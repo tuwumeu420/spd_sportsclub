@@ -24,6 +24,9 @@ services:
     build:
       context: .
       dockerfile: docker/app/Dockerfile
+    # NEW: AVOID PRIVILEGE ESCALATION
+    security_opt:
+      - no-new-privileges:true
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -47,11 +50,18 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 
   app-green:
     build:
       context: .
       dockerfile: docker/app/Dockerfile
+    security_opt:
+      - no-new-privileges:true
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -75,6 +85,12 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+    # NEW: RESOURCE LIMITS TO PREVENT DOS ATTACKS
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 
   nginx:
     build:

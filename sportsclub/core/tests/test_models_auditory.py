@@ -17,7 +17,9 @@ class AuditoryModelTest(TestCase):
     def setUp(self):
         """Create a test user for auditory fields."""
         self.user = User.objects.create_user(
-            username="testuser", email="test@example.com", password="testpass123"
+            username="testuser",
+            email="test@example.com",
+            password="testpass123",  # nosec B106
         )
 
     def test_soft_delete(self):

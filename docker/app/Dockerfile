@@ -6,6 +6,9 @@ EXPOSE 8080
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+# NEW: CREATE USER AND GROUP WITH /sbin/nologin
+RUN groupadd -r appgroup && useradd -r -g appgroup -d /app -s /sbin/nologin appuser
+
 # Set work directory
 WORKDIR /app
 
@@ -16,11 +19,18 @@ RUN apt-get update && apt-get install -y \
 
 # Install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+#NEW: USE THE HASH-HARDENED requirements.txt
+RUN pip install --no-cache-dir --require-hashes -r requirements.txt
 RUN pip install --no-cache-dir uvicorn
 
 # Copy project
 COPY sportsclub/ .
+
+#NEW: ESTABLISH WORKDIR OWNERSHIP
+RUN chown -R appuser:appgroup /app
+
+#NEW: su FROM root TO appuser
+USER appuser
 
 # Collect static files (needed when serving through a reverse proxy)
 RUN python manage.py collectstatic --noinput

@@ -24,9 +24,9 @@
 
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/v1/people/athletes');
-                
+
                 if (!response.ok) throw new Error("Request failed");
-                
+
                 const data = await response.json();
                 output.textContent = "Success! " + JSON.stringify(data);
                 output.className = "box success";

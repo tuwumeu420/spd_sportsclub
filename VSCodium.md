@@ -19,11 +19,11 @@ Continue by configuring the VS Codium settings via the `.vscode/settings.json` f
 {
     // Python interpreter
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
-    
+
     // Ruff extension settings
     "ruff.nativeServer": "on",
     "ruff.interpreter": ["${workspaceFolder}/.venv/bin/python"],
-    
+
     // Python-specific editor settings
     "[python]": {
         "editor.formatOnSave": true,
@@ -33,7 +33,7 @@ Continue by configuring the VS Codium settings via the `.vscode/settings.json` f
             "source.organizeImports": "explicit"
         }
     },
-    
+
     // Disable other Python linters to avoid conflicts
     "python.linting.enabled": false,
     "python.linting.pylintEnabled": false,
