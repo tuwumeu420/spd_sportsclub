@@ -3,6 +3,7 @@ name: Deploy ENV to PROD_SERVER
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   deploy:
