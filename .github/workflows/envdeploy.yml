@@ -25,8 +25,11 @@ jobs:
             git pull origin main
 
             # GITHUB SECRETS FOR CREATING .env.prod
-            echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
-            echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-            echo "POSTGRES_USER=sportsclub" >> .env
-            echo "POSTGRES_DB=sportsclub" >> .env
+            echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
             echo "DEBUG=False" >> .env
+            echo "ALLOWED_HOSTS=localhost,127.0.0.1,${{ secrets.SERVER_IP }}" >> .env
+            echo "POSTGRES_USER=sportsclub" >> .env
+            echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+            echo "POSTGRES_DB=sportsclub" >> .env
+            echo "POSTGRES_HOST=postgres" >> .env
+            echo "POSTGRES_PORT=5432" >> .env
