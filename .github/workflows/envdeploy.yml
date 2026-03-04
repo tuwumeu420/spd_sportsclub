@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: .env.production
+    environment: .env.production #REFERENCES GITHUB SECRETS
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

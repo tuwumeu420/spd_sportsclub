@@ -25,15 +25,13 @@ RUN pip install --no-cache-dir uvicorn
 
 # Copy project
 COPY sportsclub/ .
+RUN python manage.py collectstatic --noinput
 
 #NEW: ESTABLISH WORKDIR OWNERSHIP
 RUN chown -R appuser:appgroup /app
 
 #NEW: su FROM root TO appuser
 USER appuser
-
-# Collect static files (needed when serving through a reverse proxy)
-RUN python manage.py collectstatic --noinput
 
 # Run uvicorn
 CMD ["uvicorn", "sportsclub.asgi:application", "--host", "0.0.0.0", "--port", "8080"]

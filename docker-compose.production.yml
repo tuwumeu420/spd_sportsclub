@@ -1,9 +1,6 @@
-# docker-compose.production.yml
-
 services:
   postgres:
     restart: always
-    # Esto asegura que se limpie cualquier puerto del original
     ports: !override []
 
   app-blue:
@@ -34,7 +31,6 @@ services:
 
   nginx:
     restart: always
-    # El !override es la clave: borra el 8000 y pone solo el 80
     ports:
       - "80:80"
-    # - "443:443"
+    # - "443:443" POSSIBLE IMPLEMENTATION IF SSL
