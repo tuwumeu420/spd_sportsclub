@@ -33,9 +33,9 @@ django-environ==0.12.0 \
     --hash=sha256:227dc891453dd5bde769c3449cf4a74b6f2ee8f7ab2361c93a07068f4179041a \
     --hash=sha256:92fb346a158abda07ffe6eb23135ce92843af06ecf8753f43adf9d2366dcc0ca
     # via -r requirements.in
-django-json-widget==2.1.0 \
-    --hash=sha256:0f040b8b329d5032dc1136cf50c01dc7563a07b8f0c3f5324b9051bc3e6eaa83 \
-    --hash=sha256:fc30781292000c745449632d0f2d6ddd8f2415172664ae9fad42f1cd407a5612
+django-json-widget==2.1.1 \
+    --hash=sha256:2fa3d6fb6dba9436a29ad2cee23fa794381f54a6678ec7d74e990ae081d9800b \
+    --hash=sha256:dc8102e2fa9accd0f661ea1988c9389f8fbbcb8a4bb9cbfb8fa0525b3c1265c1
     # via -r requirements.in
 django-nanoid-field==0.1.4 \
     --hash=sha256:1c55d8c308d609dfe62ac9e4a1482eb9f7642997852a920b827748e660577b6e \
