@@ -31,4 +31,6 @@ jobs:
           context: .
           file: docker/app/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/sportsclub:latest
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/sportsclub:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/sportsclub:latest
