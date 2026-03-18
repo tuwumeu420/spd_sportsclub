@@ -36,11 +36,9 @@ jobs:
       - name: Install security and linting tools
         run: |
           python -m pip install --upgrade pip
-          # NEW: INSTALL PRE-COMMIT TO RUN ALL CONFIGURED HOOKS (RUFF, BANDIT, GITLEAKS, VULTURE, PIP-AUDIT)
           pip install pre-commit
 
       - name: Run security and linting hooks
-        # NEW: EXECUTE ALL CHALLENGE-REQUIRED SCANS IN ONE STEP USING OUR SHARED CONFIG
         run: pre-commit run --all-files
 
   test:
@@ -83,7 +81,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          # NEW: ENFORCE CRYPTOGRAPHIC HASH VERIFICATION FOR ALL PACKAGES (SUPPLY CHAIN SECURITY)
           pip install --require-hashes -r requirements.txt
 
       - name: Run migrations
@@ -110,7 +107,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          # NEW: ENSURE THE BUILD USES OUR HARDENED DOCKERFILE (NON-ROOT USER)
           file: docker/app/Dockerfile
           push: false
           tags: sportsclub-app:${{ github.sha }}
@@ -137,10 +133,16 @@ jobs:
           POSTGRES_DB=sportsclub
           EOF
 
+      # ESTE PASO ES LA CLAVE PARA QUE NGINX NO PETE
+      - name: Generate temporary SSL certificates for CI
+        run: |
+          mkdir -p docker/nginx/certs
+          openssl req -x509 -nodes -days 1 -newkey rsa:2048 \
+            -keyout docker/nginx/certs/selfsigned.key \
+            -out docker/nginx/certs/selfsigned.crt \
+            -subj "/C=ES/ST=Local/L=Local/O=Security/OU=Development/CN=localhost"
+
       - name: Build and start services
-       #NEW: TEST THE ORIGINAL STACK
-       #run: docker compose up -d --build
-       #NEW: TEST THE FULL STACK
         run: docker compose -f docker-compose.yml -f docker-compose.production.yml up -d --build
 
       - name: Wait for services to be healthy
@@ -151,15 +153,15 @@ jobs:
 
       - name: Run migrations in container
         run: |
-          # NEW: ENSURE MIGRATIONS RUN INSIDE THE HARDENED BLUE CONTAINER
           docker compose exec -T app-blue python manage.py migrate
 
       - name: Test API endpoints
         run: |
-          # VALIDATE API ACCESS UNDER NEW SECURITY HEADERS AND NON-ROOT USER
-          curl -f http://localhost:8000/blue/api/v1/openapi.json || exit 1
-          curl -f http://localhost:8000/green/api/v1/openapi.json || exit 1
-          curl -f http://localhost:8000/api/v1/openapi.json || exit 1
+          # ACTUALIZADO: Puerto 8443, HTTPS y flag -k para ignorar el cert auto-firmado
+          curl -f -k https://localhost:8443/api/v1/openapi.json || exit 1
+          # Si tienes las rutas /blue y /green configuradas en Nginx:
+          curl -f -k https://localhost:8443/blue/api/v1/openapi.json || exit 1
+          curl -f -k https://localhost:8443/green/api/v1/openapi.json || exit 1
 
       - name: Show logs on failure
         if: failure()
