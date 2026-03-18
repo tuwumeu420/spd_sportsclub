@@ -1,6 +1,7 @@
 """Django settings for sportsclub project."""
 
 # sportsclub/settings.py
+import sys
 from pathlib import Path
 
 import environ
@@ -124,6 +125,7 @@ NANOID_ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 CORS_ALLOW_ALL_ORIGINS = True
 
 # ---- NEW HARDENED HEADERS ----- #
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # NEW: ANTI-SNIFFING
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -135,7 +137,7 @@ X_FRAME_OPTIONS = "DENY"
 SECURE_REFERRER_POLICY = "same-origin"
 
 # NEW: FORCED HTTPS AND HSTS CONFIGURATION
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False if TESTING else True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 31536000
