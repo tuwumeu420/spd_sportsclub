@@ -125,7 +125,7 @@ NANOID_ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY
 CORS_ALLOW_ALL_ORIGINS = True
 
 # ---- NEW HARDENED HEADERS ----- #
-TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
 
 # NEW: ANTI-SNIFFING
 SECURE_CONTENT_TYPE_NOSNIFF = True
