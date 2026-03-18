@@ -133,7 +133,7 @@ jobs:
           POSTGRES_DB=sportsclub
           EOF
 
-      # ESTE PASO ES LA CLAVE PARA QUE NGINX NO PETE
+      # Generate CERTS live
       - name: Generate temporary SSL certificates for CI
         run: |
           mkdir -p docker/nginx/certs
@@ -157,9 +157,9 @@ jobs:
 
       - name: Test API endpoints
         run: |
-          # ACTUALIZADO: Puerto 8443, HTTPS y flag -k para ignorar el cert auto-firmado
+          # UPDATE: CHANGE 8000 to 8443
           curl -f -k https://localhost:8443/api/v1/openapi.json || exit 1
-          # Si tienes las rutas /blue y /green configuradas en Nginx:
+          # WHENEVER SEPARETED WE LEAVE BOTH SERVICES READY
           curl -f -k https://localhost:8443/blue/api/v1/openapi.json || exit 1
           curl -f -k https://localhost:8443/green/api/v1/openapi.json || exit 1
 
