@@ -106,6 +106,10 @@ ENV/
 env.bak/
 venv.bak/
 
+# Certificates
+docker/nginx/certs/*
+!docker/nginx/certs/.gitkeep
+
 # Spyder project settings
 .spyderproject
 .spyproject

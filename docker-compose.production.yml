@@ -32,5 +32,8 @@ services:
   nginx:
     restart: always
     ports:
+      - "8443:443"
       - "80:80"
-    # - "443:443" POSSIBLE IMPLEMENTATION IF SSL
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/certs:/etc/nginx/certs:ro

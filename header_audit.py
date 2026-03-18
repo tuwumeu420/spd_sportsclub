@@ -1,8 +1,10 @@
 import requests
+import urllib3
 
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # The target URL
 # URL = "https://github.com/"
-URL = "http://localhost:8000/api/v1/core/addresses"
+URL = "https://localhost:8443/api/v1/core/addresses"
 
 # The "Must Have" Headers for a Secure Deployment
 REQUIRED_HEADERS = {
@@ -14,7 +16,7 @@ REQUIRED_HEADERS = {
 }
 
 try:
-    response = requests.get(URL, timeout=30)
+    response = requests.get(URL, timeout=30, verify=False)
     print(f"Scanning {URL}")
     print(f"Status: {response.status_code}\n")
 
