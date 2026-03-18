@@ -2,6 +2,7 @@
 
 # sportsclub/settings.py
 from pathlib import Path
+
 import environ
 
 # Initialise environ
@@ -33,7 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Third-party apps
     "corsheaders",
-    "csp", # NEW: CSP ADDED
+    "csp",  # NEW: CSP ADDED
     "django_json_widget",
     "nanoid_field",
     "ninja",
@@ -90,7 +91,9 @@ DATABASES = {
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
