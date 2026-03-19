@@ -18,6 +18,10 @@ env:
   POSTGRES_DB: sportsclub
   POSTGRES_HOST: localhost
   POSTGRES_PORT: 5432
+  # Dockerhub
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  BLUE_VERSION: latest
+  GREEN_VERSION: latest
 
 jobs:
   lint:
