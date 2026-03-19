@@ -4,7 +4,7 @@ services:
     image: postgres:18-trixie
   # build:
   #   context: .
-  #   dockerfiles: docker/postgres/Dockerfile
+  #   dockerfile: docker/postgres/Dockerfile
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
