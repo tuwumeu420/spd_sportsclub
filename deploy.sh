@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# DEFINE VARIABLES
+# DEFINE VARIABLESS
 NGINX_CONF="./docker/nginx/nginx.conf"
 COMPOSE_CMD="docker compose -f docker-compose.yml -f docker-compose.production.yml"
 
