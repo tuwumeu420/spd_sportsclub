@@ -121,6 +121,7 @@ jobs:
     name: Integration Test
     runs-on: ubuntu-latest
     needs: [build]
+    environment: dockerhub
 
     steps:
       - name: Checkout code
@@ -135,6 +136,9 @@ jobs:
           POSTGRES_USER=sportsclub
           POSTGRES_PASSWORD=sportsclub
           POSTGRES_DB=sportsclub
+          DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
+          BLUE_VERSION=latest
+          GREEN_VERSION=latest
           EOF
 
       # Generate CERTS live
