@@ -45,4 +45,4 @@ jobs:
           file: docker/app/Dockerfile
           push: true
           tags: ${{ steps.tag.outputs.tags }}
-          labels: ${{ steps.tag.outputs.labels }
+          labels: ${{ steps.tag.outputs.labels }}
