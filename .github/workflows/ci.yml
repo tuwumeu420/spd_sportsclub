@@ -157,11 +157,11 @@ jobs:
 
       - name: Test API endpoints
         run: |
-          # UPDATE: CHANGE 8000 to 8443
-          curl -f -k https://localhost:8443/api/v1/openapi.json || exit 1
+          # UPDATE: CHANGE 8443 to 443
+          curl -f -k https://localhost/api/v1/openapi.json || exit 1
           # WHENEVER SEPARETED WE LEAVE BOTH SERVICES READY
-          curl -f -k https://localhost:8443/blue/api/v1/openapi.json || exit 1
-          curl -f -k https://localhost:8443/green/api/v1/openapi.json || exit 1
+          curl -f -k https://localhost/blue/api/v1/openapi.json || exit 1
+          curl -f -k https://localhost/green/api/v1/openapi.json || exit 1
 
       - name: Show logs on failure
         if: failure()
