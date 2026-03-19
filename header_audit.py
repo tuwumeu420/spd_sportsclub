@@ -4,7 +4,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # The target URL
 # URL = "https://github.com/"
-URL = "https://localhost:8443/api/v1/core/addresses"
+URL = "https://localhost/api/v1/core/addresses"
 
 # The "Must Have" Headers for a Secure Deployment
 REQUIRED_HEADERS = {

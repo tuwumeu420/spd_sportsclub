@@ -4,12 +4,10 @@ services:
     ports: !override []
 
   app-blue:
-    image: ${DOCKER_USERNAME}/sportsclub:${BLUE_VERSION:-latest}
+    image: tuwumeu420/sportsclub:latest
     restart: always
     environment:
       - DEBUG=False
-      - DEPLOYMENT_COLOR=blue
-      - POSTGRES_HOST=postgres
     security_opt:
       - no-new-privileges:true
     deploy:
@@ -19,12 +17,10 @@ services:
           memory: 512M
 
   app-green:
-    image: ${DOCKER_USERNAME}/sportsclub:${GREEN_VERSION:-latest}
+    image: tuwumeu420/sportsclub:latest
     restart: always
     environment:
       - DEBUG=False
-      - DEPLOYMENT_COLOR=green
-      - POSTGRES_HOST=postgres
     security_opt:
       - no-new-privileges:true
     deploy:

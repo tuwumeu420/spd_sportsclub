@@ -8,16 +8,29 @@ on:
       - completed
     branches:
       - main
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     environment: dockerhub
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Extract Docker Tag
+        id: tag
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/sportsclub
+          tags: |
+            type=ref,event=tag
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=V
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -31,6 +44,5 @@ jobs:
           context: .
           file: docker/app/Dockerfile
           push: true
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/sportsclub:V${{ github.run_number }}
-            ${{ secrets.DOCKER_USERNAME }}/sportsclub:latest
+          tags: ${{ steps.tag.outputs.tags }}
+          labels: ${{ steps.tag.outputs.labels }
