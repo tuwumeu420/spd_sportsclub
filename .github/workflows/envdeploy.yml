@@ -9,7 +9,7 @@ jobs:
   test-tailscale:
     runs-on: ubuntu-latest
     environment: .env.production
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,3 +30,4 @@ jobs:
           script: |
             echo "Conectado usando secretos de .env.production" > ~/test_env.txt
             hostname
+
