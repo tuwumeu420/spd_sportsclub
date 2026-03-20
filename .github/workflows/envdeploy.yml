@@ -1,0 +1,31 @@
+name: Test Connection via Tailscale
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 1. Conectamos el Runner de GitHub a tu red de Tailscale
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      # 2. Intentamos entrar por SSH y crear el archivo
+      - name: Create Test File via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }} # La IP 100.x.y.z
+          username: ${{ secrets.SERVER_USER }} # El usuario 'ciber'
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Conexión realizada con éxito por GitHub Actions el $(date)" > ~/prueba_github.txt
+            echo "Contenido del home de ciber:"
+            ls -l ~/prueba_github.txt
