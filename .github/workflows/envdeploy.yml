@@ -8,14 +8,12 @@ on:
 jobs:
   test-tailscale:
     runs-on: ubuntu-latest
-    # ESTO ES CRUCIAL: Si los secretos están en el entorno, el job DEBE 
-    environment: .env.production 
+    environment: .env.production
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Ahora GitHub sí debería "inyectar" los secretos del environment
       - name: Connect to Tailscale
         uses: tailscale/github-action@v2
         with:
@@ -30,5 +28,5 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "¡Conectado usando secretos de .env.production!" > ~/test_env.txt
+            echo "Conectado usando secretos de .env.production" > ~/test_env.txt
             hostname
