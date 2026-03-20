@@ -30,4 +30,3 @@ jobs:
           script: |
             echo "Conectado usando secretos de .env.production" > ~/test_env.txt
             hostname
-
