@@ -1,4 +1,4 @@
-name: Test Tailscale Connection
+name: Tailscale OAuth con Environment
 
 on:
   push:
@@ -6,33 +6,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-connection:
+  test-tailscale:
     runs-on: ubuntu-latest
-    # IMPORTANTE: NO pongas 'environment' aquí todavía para evitar bloqueos de secretos
+    # ESTO ES CRUCIAL: Si los secretos están en el entorno, el job DEBE llamarlo
+    environment: .env.production 
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Ahora GitHub sí debería "inyectar" los secretos del environment
       - name: Connect to Tailscale
         uses: tailscale/github-action@v2
         with:
-          # Usamos la authkey que acabamos de crear
-          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          # Forzamos una versión que sabemos que funciona bien con authkeys
-          version: 1.62.0
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
 
-      - name: Verify Connection
-        run: |
-          # Intentamos hacer ping a tu IP de Tailscale para ver si el túnel está levantado
-          tailscale status
-          ping -c 3 ${{ secrets.SERVER_IP }}
-
-      - name: Test SSH
+      - name: SSH Test
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "¡CONEXIÓN TOTALMENTE ESTABLE!" > ~/exito_final.txt
-            hostname -I
+            echo "¡Conectado usando secretos de .env.production!" > ~/test_env.txt
+            hostname
