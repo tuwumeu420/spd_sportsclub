@@ -8,7 +8,7 @@ on:
 jobs:
   test-tailscale:
     runs-on: ubuntu-latest
-    # ESTO ES CRUCIAL: Si los secretos están en el entorno, el job DEBE llamarlo
+    # ESTO ES CRUCIAL: Si los secretos están en el entorno, el job DEBE 
     environment: .env.production 
     
     steps:
