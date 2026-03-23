@@ -24,7 +24,7 @@ jobs:
 
       - name: Extract Docker tag
         id: tag
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/sportsclub
           tags: |
